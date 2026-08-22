@@ -486,6 +486,30 @@
   @media (min-width:64rem){
     :root{ --col: 36rem; }
     .flow{ padding-left:4.5rem; padding-right:4.5rem; }
+
+    /* ── framed card ──────────────────────────────────────────────────
+       The .flow padding above insets the text inside its column. This
+       insets the whole invitation from the screen: below this width the
+       paper is full-bleed, from here up it is a centred panel resting on
+       a page.
+
+       html carries the surround because body IS the card. A background
+       on body normally propagates to the whole canvas; giving html an
+       explicit background stops that, so body paints only inside its own
+       box and the gutters show the surround.
+
+       Two layers need no rule of their own: the envelope sits in body's
+       flow so it inherits the width, and .scene is fixed and full-width
+       but the watercolour inside it is already capped at 30rem and
+       centred, so it lands within the card either way. */
+    html{ background:#3a2833; }
+    body{
+      max-width: min(100% - 6rem, 52rem);
+      margin-inline: auto;
+      box-shadow:
+        0 0 0 1px rgba(201,163,95,.28),
+        0 2rem 5rem rgba(40,26,34,.45);
+    }
   }
 </style>
 </head>
