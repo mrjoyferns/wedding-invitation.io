@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Volan &amp; Cible — December 22, 2027</title>
+<title>Vollan &amp; Cible — December 22, 2027</title>
 <meta name="theme-color" content="#163024">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Italiana&family=Parisienne&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,700&family=Italiana&family=Parisienne&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════════════════════════════
-   Volan & Cible — forest green stock, maroon, gold foil, garden arch
+   Vollan & Cible — forest green stock, maroon, gold foil, garden arch
 
    One file, no raster assets. Every flower, arch, petal and wax seal
    here is SVG or a CSS gradient.
@@ -267,13 +267,30 @@ svg{ display:block; }
     inset 0 -.1rem .24rem rgba(244,174,184,.26);
 }
 .seal-sprig{
-  position:relative; width:3.9rem; height:3.9rem;
-  filter:
-    drop-shadow(0 .09rem 0 rgba(248,204,150,.42))
-    drop-shadow(0 -.07rem .1rem rgba(18,2,5,.72));
-  opacity:.94;
-}
+  /* This box is the only thing that sets how big the cipher renders —
+     the font-size inside #sealMono cancels against the viewBox.
 
+     6.4 x 3.528rem holds the mark's own 1.814:1 ratio and is as large as
+     the seal allows. The wax face inside .seal::before is 6.64rem
+     across; because script ink does not reach the corners of its
+     bounding box, the mark can run wider than a rectangle inscribed in
+     that circle would — but not much. Checked against the face at 6.0,
+     6.4 and 6.8: at 6.8 the V's swash and the C's terminal both cross
+     the rim, so 6.4 is the ceiling while the seal stays 8rem. */
+  position:relative; width:6.4rem; height:3.528rem;
+  /* a mismatched fallback script should spill, not be sliced */
+  overflow:visible;
+  /* Debossed, not raised: the seal's own light comes from the upper
+     left, so a shape pressed INTO the wax catches light on its lower
+     edge and shadow on its upper one. That is the first two shadows.
+     The third is the soft dark the well itself casts down into the wax,
+     which is what gives the strike depth rather than just an outline. */
+  filter:
+    drop-shadow(0  .085rem .012rem rgba(255,224,172,.5))
+    drop-shadow(0 -.055rem .055rem rgba(24,3,8,.8))
+    drop-shadow(0  .28rem  .46rem  rgba(20,2,6,.42));
+  opacity:.96;
+}
 /* ── envelope lettering ── */
 .env-note{
   position:absolute; left:0; right:0; top:calc(63% + 6.2rem);
@@ -788,6 +805,52 @@ svg{ display:block; }
     <path d="M20 56 C 26 52 32 52 38 56" stroke-width="1.8"/>
   </g>
 
+  <!-- The monogram struck into the wax, which is what the seal carries
+       now instead of the sprig. Set in the page's own serif at bold
+       italic rather than drawn as paths: a real garalde italic C has
+       modulated strokes and a hooked terminal that a hand-authored
+       curve at this size gets wrong, and the family is already loaded.
+       Georgia italic is the fallback and is a fair stand-in.
+
+       One <text> with three tspans, so the ampersand sizes down on its
+       own and the fit between the three glyphs is the font's own
+       kerning. The dy on the C cancels the dy that lifted the
+       ampersand -- dy carries forward to whatever follows it, so
+       without that the C would sit high. -->
+  <g id="sealMono">
+    <!-- The cipher, in the page's own script — the same Parisienne that
+         sets the verse and the sign-off monogram, so the seal speaks in
+         the voice the invitation closes in.
+
+         No engraved rule, and a landscape box rather than a square one.
+         Both follow from the letterforms: measured at font-size 100,
+         Parisienne's "V&C" is 247 wide by 137 tall — a 1.8:1 mark, where
+         the serif caps it replaces were close to square. A circular rule
+         tight enough to frame something that wide gets crossed by the
+         V's entry swash and the C's terminal, and a script cipher struck
+         in wax carries no rule anyway.
+
+         The viewBox is derived from those metrics rather than guessed:
+         at font-size 48 the mark is 122.7 x 65.8, and the box is that
+         plus ~2 units of air on each side. The pad is deliberately tight
+         — every unit of it is dead space that scales the letters down,
+         since what reaches the screen is (box in rem)/(box in units).
+         The baseline sits at 46.2 because the V's swash rises .92em
+         above it. Changing the font-size means recomputing all of this;
+         to resize the mark, change the rem box on .seal-sprig instead,
+         which is the only lever that actually alters what is rendered.
+
+         overflow is visible on the host svg: if Parisienne fails and a
+         fallback script with different metrics takes over, the mark
+         spills past this tight box instead of being sliced by it, and
+         there is enough wax around it to absorb that. -->
+    <text x="63.5" y="46.2" text-anchor="middle"
+          fill="url(#foilSm)" stroke="none"
+          font-family="'Parisienne','Segoe Script','Brush Script MT',cursive"
+          font-weight="400" font-size="48"
+        ><tspan>V</tspan><tspan font-size="43.2">&amp;</tspan><tspan>C</tspan></text>
+  </g>
+
   <path id="heart" d="M12 21s-8-5.1-8-10.4A4.6 4.6 0 0 1 12 7a4.6 4.6 0 0 1 8 3.6C20 15.9 12 21 12 21z"/>
   <path id="pin" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/>
 </defs>
@@ -947,8 +1010,8 @@ svg{ display:block; }
   <!-- the wax seal -->
   <div class="seal-wrap">
     <button class="seal" id="seal" type="button" aria-label="Open the invitation">
-      <svg class="seal-sprig" viewBox="0 0 64 64" style="color:#f0d9a0" focusable="false" aria-hidden="true">
-        <use href="#sealSprig"/>
+      <svg class="seal-sprig" viewBox="0 0 127 70" style="color:#f0d9a0" focusable="false" aria-hidden="true">
+        <use href="#sealMono"/>
       </svg>
     </button>
   </div>
@@ -964,8 +1027,8 @@ svg{ display:block; }
 
   <!-- names -->
   <section class="block reveal">
-    <p class="eyebrow">Together with their families</p>
-    <h1 class="names foil">Volan<span class="amp">&amp;</span>Cible</h1>
+    <p class="eyebrow">Together with our families</p>
+    <h1 class="names foil">Vollan<span class="amp">&amp;</span>Cible</h1>
     <div class="rule"><i></i><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#heart"/></svg><i></i></div>
     <p class="date-line">December 22, 2027</p>
   </section>
@@ -1065,15 +1128,15 @@ svg{ display:block; }
     <div class="stamp">
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#heart"/></svg>
     </div>
-    <p class="eyebrow">Kindly reply</p>
-    <h2 class="title foil">We would love to have you<br>with us in Velim</h2>
+<br>
+    <h2 class="title foil">We would be delighted to have you with us as we celebrate the beginning of our life together.</h2>
     <div class="rule"><i></i><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#heart"/></svg><i></i></div>
   
   </section>
 
   <!-- sign-off -->
   <section class="block signoff reveal">
-    <p class="monogram foil">Volan &amp; Cible</p>
+    <p class="monogram foil">Vollan &amp; Cible</p>
     <div class="rule"><i></i><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#heart"/></svg><i></i></div>
     <p class="fine">December 22, 2027<br>We can&rsquo;t wait to celebrate with you</p>
   </section>
