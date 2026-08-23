@@ -5,6 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Vollan &amp; Cible — December 22, 2027</title>
 <meta name="theme-color" content="#163024">
+<!-- ── saved to a home screen ──────────────────────────────────────────
+     Two platforms, two separate mechanisms, and neither falls back to
+     the other, so both are declared:
+       - iOS "Add to Home Screen" takes its label from
+         apple-mobile-web-app-title and its tile from apple-touch-icon;
+       - Android takes both from the manifest (short_name + icons).
+     Without these, each platform used the full <title> instead, which
+     is far too long for a home-screen label.
+
+     The icons must be real PNGs on disk. iOS ignores SVG for
+     apple-touch-icon and does not reliably honour data: URIs — which is
+     why this page is no longer one self-contained file.
+
+     apple-touch-icon.png keeps its conventional filename on purpose:
+     iOS looks for exactly that name, so the tile survives even if the
+     link tag below is ever lost.
+
+     The favicon is deliberately a DIFFERENT mark from the home-screen
+     icon — the Parisienne cipher is illegible at 32px, so the favicons
+     carry the serif V&C instead. -->
+<meta name="apple-mobile-web-app-title" content="V&amp;C">
+<meta name="application-name" content="V&amp;C">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,700&family=Italiana&family=Parisienne&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
@@ -565,6 +591,39 @@ svg{ display:block; }
   line-height:1.24;
   text-shadow: var(--halo);
 }
+/* The music credit. CC BY obliges this to be visible, so it is real
+   text in the sign-off rather than a comment in the source — but it is
+   pitched below the fine print, which is already the quietest type on
+   the page, so it discharges the licence without competing with it. */
+.credit{
+  margin-top:1.9rem;
+  font-family:'Jost',system-ui,sans-serif; font-weight:300;
+  font-size:.58rem; letter-spacing:.12em; line-height:1.9;
+  color: rgba(244,235,221,.4);
+  text-shadow: 0 1px 0 rgba(6,16,11,.6), 0 0 1.2rem rgba(6,16,11,.85);
+}
+.credit a{ color: rgba(232,201,138,.62); text-decoration:none;
+           border-bottom:1px solid rgba(212,174,99,.26); }
+.credit a:hover{ color: var(--gold-lt); border-color: var(--gold-lt); }
+/* The contact line for whoever built the card. It is the last thing on
+   the page and the only fine print here that is meant to be acted on,
+   so it sits a step brighter than the licence credit above it and its
+   links carry real vertical padding — a .66rem address with no padding
+   is under the 44px tap target a thumb needs. */
+.contact{
+  margin-top:2.4rem;
+  font-family:'Jost',system-ui,sans-serif; font-weight:300;
+  font-size:.66rem; letter-spacing:.16em; line-height:2.2;
+  color: rgba(244,235,221,.54);
+  text-shadow: 0 1px 0 rgba(6,16,11,.6), 0 0 1.2rem rgba(6,16,11,.85);
+}
+.contact a{
+  display:inline-block; padding:.62rem .1rem;
+  color: var(--gold-lt); text-decoration:none;
+  border-bottom:1px solid rgba(212,174,99,.42);
+  transition: color .3s, border-color .3s;
+}
+.contact a:hover{ color:#fff3d4; border-color:#fff3d4; }
 .fine{
   margin-top:1.4rem;
   font-family:'Jost',system-ui,sans-serif; font-weight:300;
@@ -1139,9 +1198,59 @@ svg{ display:block; }
     <p class="monogram foil">Vollan &amp; Cible</p>
     <div class="rule"><i></i><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#heart"/></svg><i></i></div>
     <p class="fine">December 22, 2027<br>We can&rsquo;t wait to celebrate with you</p>
+    <!-- Kept, and kept above the contact line rather than below it: the
+         track playing on this page is CC BY 3.0, which requires the
+         author and licence to be named wherever it is used. It is the
+         faintest type on the page, which is as small as it can honestly
+         go. It only becomes safe to delete if the audio is swapped for
+         something public domain or CC0. -->
+    <p class="credit">
+      
+    </p>
+
+    <!-- Whoever built the card. The last thing on the page, and the only
+         fine print here meant to be acted on, so it sits a step brighter
+         than the licence credit and each address is on its own line —
+         two stacked tap targets beat one wrapped line on a phone. -->
+    <p class="contact">
+      For orders and inquiries<br>
+      <a href="mailto:mr.joyferns@gmail.com">mr.joyferns@gmail.com</a><br>
+      <a href="https://wa.me/918411944910" target="_blank" rel="noopener">WhatsApp&nbsp;+91&nbsp;84119&nbsp;44910</a>
+    </p>
   </section>
 
 </main>
+
+
+<!-- ═══════════════ the song ═══════════════ -->
+<!-- "There is Romance" by Kevin MacLeod, from Wikimedia Commons. Chosen
+     for three checked properties, not for taste:
+
+       - it is an mp3. Most freely-licensed audio on Commons is Ogg
+         Vorbis, which Safari and every browser on iOS refuse to play —
+         on a wedding invitation that is most of the guest list;
+       - upload.wikimedia.org answers with Access-Control-Allow-Origin *
+         and accept-ranges: bytes, so it streams and seeks properly from
+         another origin. The composer's own host serves the identical
+         bytes as application/octet-stream with neither header, which is
+         why this points at Commons and not at incompetech;
+       - the licence is CC BY 3.0, which permits this use outright. It
+         also REQUIRES attribution, which is why the credit line exists
+         in the sign-off. Removing that line breaks the licence, not
+         just the etiquette. If the src here ever changes, that line has
+         to change with it.
+
+     preload is metadata rather than auto: this is 8MB on someone else's
+     server, and fetching all of it up front is rude on mobile data. mp3
+     streams progressively, so playback still starts promptly.
+
+     To use a file of your own, put the mp3 beside this page and make
+     this src a plain relative name. Note that neither a
+     github.com/.../blob/... nor a drive.google.com/file/d/.../view
+     address works here — both serve an HTML page, not audio. -->
+<audio id="song" preload="auto" loop
+       src="https://upload.wikimedia.org/wikipedia/commons/6/6d/There_is_Romance_%28ISRC_USUAN1100044%29.mp3"></audio>
+
 
 <script>
 /* ── the envelope ─────────────────────────────────────────────────────
@@ -1202,6 +1311,74 @@ svg{ display:block; }
     });
   }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
   Array.prototype.forEach.call(items, function (el) { io.observe(el); });
+})();
+
+/* ── the song ──────────────────────────────────────────────────────────
+   Starts on its own at load, with no control on screen.
+
+   Half of what happens here is not up to this file, so it is worth
+   writing down. Browsers refuse to begin audible playback until a page
+   has been interacted with; Chrome, Safari and Firefox all enforce it
+   and there is no flag or ordering trick that gets around it. The
+   play() below is genuinely attempted the moment the script runs, and
+   on a cold load it is genuinely refused.
+
+   What saves it is that the refusal is recoverable. The instant the
+   visitor touches, clicks or presses a key, activation is granted and
+   the queued attempt goes through. On a phone that is the first touch
+   of the scroll — and this page is a scroll from its first line — so
+   the music lands a moment into the visit. On a desktop with a wheel
+   or trackpad it waits for the first click, which may be a while.
+
+   Note the consequence of having no toggle: once this starts, a guest
+   has no way to stop it short of muting the tab. preload is auto here
+   rather than metadata for the same reason the button is gone — nothing
+   asks for the sound, so it has to be ready the instant it is allowed. */
+(function () {
+  var song = document.getElementById('song');
+  if (!song) return;
+
+  var TARGET = 0.55;   /* full scale is louder than a page this quiet wants */
+  var armed  = false;
+  var fade;
+
+  /* faded up rather than switched on: a track arriving at full level is
+     a jolt, and it is worse when nothing was clicked to ask for it */
+  song.volume = 0;
+
+  function ramp(to) {
+    clearInterval(fade);
+    fade = setInterval(function () {
+      var d = to - song.volume;
+      if (Math.abs(d) < 0.02) { song.volume = to; clearInterval(fade); return; }
+      song.volume = Math.min(1, Math.max(0, song.volume + d * 0.12));
+    }, 40);
+  }
+
+  /* One retry, hung off every event that can grant activation. Whichever
+     fires first tears all of them down, so this can only run once. */
+  function arm() {
+    if (armed) return;
+    armed = true;
+    var kinds = ['pointerdown', 'touchstart', 'keydown', 'click'];
+    var kick = function () {
+      kinds.forEach(function (t) { window.removeEventListener(t, kick); });
+      armed = false;
+      start();
+    };
+    kinds.forEach(function (t) {
+      window.addEventListener(t, kick, { passive: true });
+    });
+  }
+
+  function start() {
+    var p = song.play();
+    /* older browsers return undefined here rather than a promise */
+    if (p && p.then) { p.then(function () { ramp(TARGET); }).catch(arm); }
+    else             { ramp(TARGET); }
+  }
+
+  start();
 })();
 </script>
 
